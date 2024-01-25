@@ -9,7 +9,7 @@ import {
   InterpolateFunction,
   LinkModel,
 } from '@grafana/data';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 import _ from 'lodash';
 
 import { StatusFieldOptions } from 'lib/statusFieldOptionsBuilder';
@@ -52,7 +52,11 @@ export function buildStatusMetricProps(
     let displayValue = '';
     switch (config.custom.thresholds.valueHandler) {
       case 'Number Threshold':
-        let value: number = field.state.calcs![config.custom.aggregation];
+        if (!field.state.calcs) {
+          return;
+        }
+
+        let value: number = field.state.calcs?.[config.custom.aggregation];
         const crit = +config.custom.thresholds.crit;
         const warn = +config.custom.thresholds.warn;
         if ((warn <= crit && crit <= value) || (warn >= crit && crit >= value)) {
@@ -68,6 +72,7 @@ export function buildStatusMetricProps(
         } else {
           displayValue = toFixed(value, config.decimals);
         }
+
         break;
       case 'String Threshold':
         displayValue = field.state.calcs![config.custom.aggregation];

@@ -18,6 +18,14 @@ export interface StatusPanelOptions {
   isHideAlertsOnDisable: boolean;
 }
 
+// Define default values for the colors
+const defaultColorValues = {
+  crit: 'red', // default critical color
+  warn: 'orange', // default warning color
+  ok: 'green', // default OK color
+  disable: 'gray' // default disabled color
+};
+
 export const statusPanelOptionsBuilder = (builder: PanelOptionsEditorBuilder<StatusPanelOptions>) =>
   builder
     .addTextInput({
@@ -93,6 +101,7 @@ export const statusPanelOptionsBuilder = (builder: PanelOptionsEditorBuilder<Sta
       name: 'Colors',
       editor: StatusColorOptionsEditor,
       category: ['Threshold Options'],
+      defaultValue: defaultColorValues,
     })
     .addBooleanSwitch({
       path: 'isAutoScrollOnOverflow',

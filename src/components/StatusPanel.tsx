@@ -1,6 +1,6 @@
 import { PanelProps } from '@grafana/data';
 import { IconButton } from '@grafana/ui';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import _ from 'lodash';
 import React from 'react';
 import ReactCardFlip from 'react-card-flip';
